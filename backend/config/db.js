@@ -4,10 +4,15 @@ import { seedAdmin } from "../utils/seedAdmin.js";
 const connectDB = async () => {
   try {
     if (process.env.MONGO_URI && !process.env.MONGO_URI.includes("127.0.0.1") && !process.env.MONGO_URI.includes("localhost")) {
-      const conn = await mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 5000 });
-      console.log(`MongoDB connected: ${conn.connection.host}`);
-      await seedAdmin();
-      return;
+      try {
+        const conn = await mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 8000 });
+        console.log(`MongoDB connected: ${conn.connection.host}`);
+        await seedAdmin();
+        return;
+      } catch (cloudErr) {
+        console.warn(`MongoDB Atlas connection warning: ${cloudErr.message}`);
+        console.warn("Falling back to local / embedded database so server stays running...");
+      }
     }
 
     try {
@@ -28,8 +33,7 @@ const connectDB = async () => {
     console.log(`In-memory MongoDB connected: ${conn.connection.host}`);
     await seedAdmin();
   } catch (error) {
-    console.error(`MongoDB connection error: ${error.message}`);
-    process.exit(1);
+    console.error(`MongoDB fallback error: ${error.message}`);
   }
 };
 
