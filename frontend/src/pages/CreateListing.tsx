@@ -42,10 +42,12 @@ export default function CreateListing() {
     try {
       const res = await createListingRequest(values);
       navigate(`/listings/${res.listing._id}`);
-    } catch (err) {
+    } catch (err: any) {
       const message =
-        (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-        "Could not create listing";
+        err?.response?.data?.message ||
+        (err?.message === "Network Error" || !err?.response
+          ? "Unable to connect to backend server. Please ensure the backend server is running."
+          : "Could not create listing");
       setServerError(message);
     } finally {
       setSubmitting(false);

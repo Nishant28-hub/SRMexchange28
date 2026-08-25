@@ -30,10 +30,12 @@ export default function Login() {
     try {
       await login(values.email, values.password);
       navigate("/dashboard");
-    } catch (err) {
+    } catch (err: any) {
       const message =
-        (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-        "Invalid credentials";
+        err?.response?.data?.message ||
+        (err?.message === "Network Error" || !err?.response
+          ? "Unable to connect to backend server. Please ensure the backend server is running."
+          : "Invalid credentials");
       setServerError(message);
     } finally {
       setSubmitting(false);

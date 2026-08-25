@@ -34,10 +34,12 @@ export default function Register() {
     try {
       await registerUser(values);
       navigate("/dashboard");
-    } catch (err) {
+    } catch (err: any) {
       const message =
-        (err as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-        "Something went wrong";
+        err?.response?.data?.message ||
+        (err?.message === "Network Error" || !err?.response
+          ? "Unable to connect to backend server. Please ensure the backend server is running."
+          : "Something went wrong");
       setServerError(message);
     } finally {
       setSubmitting(false);
