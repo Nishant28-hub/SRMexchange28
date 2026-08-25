@@ -3,6 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 const schema = z.object({
@@ -48,40 +50,83 @@ export default function Register() {
 
   return (
     <div className="mx-auto flex min-h-[80vh] max-w-md flex-col justify-center px-6 py-12">
-      <div className="glass-card p-8">
-        <h1 className="mb-1 font-display text-2xl font-semibold">Create your account</h1>
-        <p className="mb-6 text-sm text-white/50">Use your verified SRM email (@srmist.edu.in) to join.</p>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div>
-            <input placeholder="Full name" className="input-field" {...register("name")} />
-            {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
+      <motion.div 
+        initial={{ opacity: 0, y: 20, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: "spring", stiffness: 350, damping: 25 }}
+        className="mac-window overflow-hidden"
+      >
+        {/* macOS Window Titlebar */}
+        <div className="flex items-center justify-between border-b border-white/10 bg-black/40 px-4 py-3 backdrop-blur-xl">
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-[#ff5f56] shadow-[0_0_8px_rgba(255,95,86,0.6)]"></span>
+            <span className="h-3 w-3 rounded-full bg-[#ffbd2e] shadow-[0_0_8px_rgba(255,189,46,0.6)]"></span>
+            <span className="h-3 w-3 rounded-full bg-[#27c93f] shadow-[0_0_8px_rgba(39,201,63,0.6)]"></span>
           </div>
-          <div>
-            <input placeholder="College email (e.g. name@srmist.edu.in)" className="input-field" {...register("email")} />
-            {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
-          </div>
-          <div>
-            <input type="password" placeholder="Password (min 6 characters)" className="input-field" {...register("password")} />
-            {errors.password && <p className="mt-1 text-xs text-red-400">{errors.password.message}</p>}
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <input placeholder="College / Campus (e.g. SRMIST KTR)" defaultValue="SRMIST" className="input-field" {...register("college")} />
-            <input placeholder="Branch (e.g. CSE / Biomed)" className="input-field" {...register("branch")} />
-          </div>
-          <input placeholder="Year of Study (e.g. 1st Year)" className="input-field" {...register("year")} />
+          <div className="text-[11px] font-mono text-white/40">srmist.edu.in/signup</div>
+          <div className="w-10"></div>
+        </div>
 
-          {serverError && <p className="text-sm text-red-400">{serverError}</p>}
+        <div className="p-8">
+          <h1 className="mb-1 font-display text-2xl font-bold text-white">Create your account</h1>
+          <p className="mb-6 text-xs leading-relaxed text-white/50">
+            Use your verified SRM email (<span className="text-emerald-400">@srmist.edu.in</span>) to join campus exchange.
+          </p>
 
-          <button type="submit" disabled={submitting} className="btn-primary mt-2 disabled:opacity-60">
-            {submitting ? "Creating account..." : "Create account"}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <div>
+              <input placeholder="Full name" className="input-field" {...register("name")} />
+              {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
+            </div>
+            <div>
+              <input placeholder="College email (e.g. name@srmist.edu.in)" className="input-field" {...register("email")} />
+              {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
+            </div>
+            <div>
+              <input type="password" placeholder="Password (min 6 characters)" className="input-field" {...register("password")} />
+              {errors.password && <p className="mt-1 text-xs text-red-400">{errors.password.message}</p>}
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <input placeholder="College / Campus" defaultValue="SRMIST" className="input-field" {...register("college")} />
+              <input placeholder="Branch (CSE / Biomed)" className="input-field" {...register("branch")} />
+            </div>
+            <input placeholder="Year of Study (e.g. 1st Year)" className="input-field" {...register("year")} />
 
-        <p className="mt-6 text-center text-sm text-white/50">
-          Already have an account? <Link to="/login" className="text-emerald-400">Log in</Link>
-        </p>
-      </div>
+            {serverError && (
+              <motion.div 
+                initial={{ opacity: 0, y: -5 }} 
+                animate={{ opacity: 1, y: 0 }} 
+                className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-300"
+              >
+                {serverError}
+              </motion.div>
+            )}
+
+            <motion.button 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="submit" 
+              disabled={submitting} 
+              className="btn-primary mt-2 gap-2 text-sm font-semibold disabled:opacity-60"
+            >
+              {submitting ? (
+                <>
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent"></span>
+                  Creating account...
+                </>
+              ) : (
+                <>
+                  Create account <ArrowRight size={15} />
+                </>
+              )}
+            </motion.button>
+          </form>
+
+          <p className="mt-6 text-center text-xs text-white/50">
+            Already have an account? <Link to="/login" className="text-emerald-400 font-medium hover:underline">Log in</Link>
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
 }

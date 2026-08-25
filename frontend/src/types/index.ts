@@ -17,6 +17,7 @@ export interface User {
 export interface ListingOwner {
   _id: string;
   name: string;
+  email?: string;
   avatar?: string;
   reputation: number;
   college?: string;
