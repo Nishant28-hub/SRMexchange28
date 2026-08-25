@@ -19,9 +19,9 @@ const features = [
 ];
 
 const testimonials = [
-  { name: "Ananya R.", role: "Final Year, CSE", quote: "Sold three textbooks and found my hackathon team here in the same week." },
-  { name: "Rehan K.", role: "Second Year, ECE", quote: "The notes section alone got me through my semester exams without panic." },
-  { name: "Priya S.", role: "Third Year, Biomed", quote: "Loved how easy it was to give away lab coats and calculators before shifting rooms." },
+  { name: "M Sriya", role: "ECE Branch", quote: "Sold three textbooks and found my hackathon team here in the same week." },
+  { name: "Sunetri Panigrahi", role: "CSE Core", quote: "The notes section alone got me through my semester exams without panic." },
+  { name: "Subhasree Mishra", role: "Biotech", quote: "Loved how easy it was to give away lab coats and calculators before shifting rooms." },
 ];
 
 const containerVariants = {
