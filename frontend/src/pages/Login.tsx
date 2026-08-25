@@ -65,11 +65,11 @@ export default function Login() {
 
         <div className="p-8">
           <h1 className="mb-1 font-display text-2xl font-bold text-white">Welcome back</h1>
-          <p className="mb-6 text-xs text-white/50">Log in with your verified college email.</p>
+          <p className="mb-6 text-xs text-white/50">Log in with your registered email.</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <div>
-              <input placeholder="College email" className="input-field" {...register("email")} />
+              <input placeholder="Email address" className="input-field" {...register("email")} />
               {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
             </div>
             <div>

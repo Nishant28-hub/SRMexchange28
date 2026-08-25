@@ -15,7 +15,7 @@ export const registerUser = async (req, res, next) => {
     }
 
     if (!isCollegeEmail(email)) {
-      return res.status(400).json({ success: false, message: "Please use your verified college email address" });
+      return res.status(400).json({ success: false, message: "Please enter a valid email address" });
     }
 
     const existing = await User.findOne({ email: email.toLowerCase() });

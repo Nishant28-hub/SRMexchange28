@@ -70,7 +70,7 @@ export default function Register() {
         <div className="p-8">
           <h1 className="mb-1 font-display text-2xl font-bold text-white">Create your account</h1>
           <p className="mb-6 text-xs leading-relaxed text-white/50">
-            Use your verified SRM email (<span className="text-emerald-400">@srmist.edu.in</span>) to join campus exchange.
+            Sign up to buy, sell, exchange and connect on campus.
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -79,7 +79,7 @@ export default function Register() {
               {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
             </div>
             <div>
-              <input placeholder="College email (e.g. name@srmist.edu.in)" className="input-field" {...register("email")} />
+              <input placeholder="Email address (college or personal)" className="input-field" {...register("email")} />
               {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
             </div>
             <div>
@@ -87,8 +87,8 @@ export default function Register() {
               {errors.password && <p className="mt-1 text-xs text-red-400">{errors.password.message}</p>}
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <input placeholder="College / Campus" defaultValue="SRMIST" className="input-field" {...register("college")} />
-              <input placeholder="Branch (CSE / Biomed)" className="input-field" {...register("branch")} />
+              <input placeholder="College / Campus (e.g. SRMIST)" defaultValue="SRMIST" className="input-field" {...register("college")} />
+              <input placeholder="Branch (e.g. CSE / Biomed)" className="input-field" {...register("branch")} />
             </div>
             <input placeholder="Year of Study (e.g. 1st Year)" className="input-field" {...register("year")} />
 
