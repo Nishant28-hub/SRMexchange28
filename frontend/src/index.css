@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: theme(fontFamily.display);
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+  .glass-card {
+    @apply glass rounded-2xl shadow-glow;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-emerald-500 px-5 py-2.5 font-medium text-black transition hover:bg-emerald-400;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center rounded-xl border border-white/15 px-5 py-2.5 font-medium text-white transition hover:border-cyan-400 hover:text-cyan-400;
+  }
+  .input-field {
+    @apply w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-white/40 outline-none transition focus:border-emerald-500;
+  }
+}
+
+body {
+  background: radial-gradient(circle at top, #0f1714 0%, #070b09 60%, #030403 100%);
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(16, 185, 129, 0.35);
+}
