@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
+import { seedAdmin } from "../utils/seedAdmin.js";
 
 const connectDB = async () => {
   try {
     if (process.env.MONGO_URI && !process.env.MONGO_URI.includes("127.0.0.1") && !process.env.MONGO_URI.includes("localhost")) {
       const conn = await mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 5000 });
       console.log(`MongoDB connected: ${conn.connection.host}`);
+      await seedAdmin();
       return;
     }
 
@@ -13,6 +15,7 @@ const connectDB = async () => {
         serverSelectionTimeoutMS: 2000,
       });
       console.log(`MongoDB connected: ${conn.connection.host}`);
+      await seedAdmin();
       return;
     } catch (localErr) {
       console.log("Local MongoDB instance not active. Starting embedded in-memory MongoDB...");
@@ -23,6 +26,7 @@ const connectDB = async () => {
     const uri = mongod.getUri();
     const conn = await mongoose.connect(uri);
     console.log(`In-memory MongoDB connected: ${conn.connection.host}`);
+    await seedAdmin();
   } catch (error) {
     console.error(`MongoDB connection error: ${error.message}`);
     process.exit(1);

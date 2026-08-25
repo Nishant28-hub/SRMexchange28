@@ -41,14 +41,19 @@ export default function Dashboard() {
 
         <div className="flex flex-col gap-6 p-8 md:flex-row md:items-center md:justify-between">
           <div>
-            <div className="flex items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2.5">
               <h1 className="font-display text-3xl font-bold text-white">Welcome back, {user?.name.split(" ")[0]} 👋</h1>
+              {user?.role === "admin" && (
+                <span className="rounded-full bg-purple-500/20 border border-purple-400/40 px-2.5 py-0.5 text-xs text-purple-300 font-mono shadow-[0_0_12px_rgba(168,85,247,0.3)]">
+                  🛡️ Admin
+                </span>
+              )}
               <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-0.5 text-xs text-emerald-300 font-mono">
                 Verified SRM
               </span>
             </div>
             <p className="mt-1 text-xs text-white/50 flex items-center gap-3">
-              <span>{user?.college || "SRMIST"} • {user?.branch || "Engineering"}</span>
+              <span>{user?.college || "SRMIST"} • {user?.branch || "BME"} • Year {user?.year || "1"}</span>
               <span className="flex items-center gap-1 text-emerald-400 font-medium">
                 <Award size={13} /> {user?.reputation ?? 0} Campus Reputation
               </span>
