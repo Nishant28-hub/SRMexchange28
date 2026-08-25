@@ -96,7 +96,7 @@ export const updateListing = async (req, res, next) => {
       return res.status(404).json({ success: false, message: "Listing not found" });
     }
 
-    if (listing.owner.toString() !== req.user._id.toString()) {
+    if (listing.owner.toString() !== req.user._id.toString() && req.user.role !== "admin") {
       return res.status(403).json({ success: false, message: "Not authorized to edit this listing" });
     }
 
@@ -121,7 +121,7 @@ export const deleteListing = async (req, res, next) => {
       return res.status(404).json({ success: false, message: "Listing not found" });
     }
 
-    if (listing.owner.toString() !== req.user._id.toString()) {
+    if (listing.owner.toString() !== req.user._id.toString() && req.user.role !== "admin") {
       return res.status(403).json({ success: false, message: "Not authorized to delete this listing" });
     }
 

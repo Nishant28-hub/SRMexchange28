@@ -25,3 +25,10 @@ export const fetchCategories = () =>
 
 export const fetchMyListings = () =>
   api.get<{ success: boolean; listings: Listing[] }>("/listings/mine").then((res) => res.data);
+
+export const deleteListingRequest = (id: string) =>
+  api.delete<{ success: boolean; message: string }>(`/listings/${id}`).then((res) => res.data);
+
+export const updateListingRequest = (id: string, data: Partial<Listing>) =>
+  api.put<{ success: boolean; listing: Listing }>(`/listings/${id}`, data).then((res) => res.data);
+
